@@ -16,8 +16,8 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
@@ -25,26 +25,28 @@ module.exports = {
       },
       cpf: {
         type: Sequelize.STRING,
-        unique: true,
         allowNull: false,
+        unique: true,
+
       },
       date_of_birth: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
       gender: {
         type: Sequelize.STRING,
         allowNull: false,
+
       },
       adress: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -54,7 +56,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-     await queryInterface.dropTable('users');
-    
+    await queryInterface.dropTable('users');
+
   }
 };
