@@ -1,18 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const { connection } = require('./database/connection');
+const routes = require('./routes/routes');
 
 const PORT_API = process.env.PORT_API
 
 class Server {
-    constructor(server = express()) {
+    constructor(server = express()) 
+    {
         this.middlewares(server);
         this.database();
+        server.use(routes);
         this.initializeServer(server);
     }
     async middlewares(app) {
-        app.use(express.json());
         app.use(cors());
+        app.use(express.json());
     }
     async database() {
         try {
@@ -20,7 +23,7 @@ class Server {
             console.log('Connection has been established successfully.');
         } catch (error) {
             console.error('Unable to connect to the database:', error);
-            throw error;
+            throw error.message;   
         }
     }
     async initializeServer(app) {
