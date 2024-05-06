@@ -10,6 +10,10 @@ const Destination = connection.define('destinations', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    postal_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     locality: {
         type: DataTypes.STRING,
         allowNull: false
