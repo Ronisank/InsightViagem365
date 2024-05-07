@@ -1,5 +1,6 @@
 const Destination = require('../models/destinations');
 const { destiny } = require('../service/serviceMap');
+const { postalCode } = require('../service/servicePostal');
 
 
 class DestinationsController {
@@ -26,16 +27,18 @@ class DestinationsController {
 
     async register(req, res) {
         try {
-            const destination_name = req.body.destination_name;
             const description = req.body.description;
             const postal_code = req.body.postal_code;
-            const locality = req.body.locality;
 
             if (!postal_code) {
                 res.status(400).json({ error: 'Postal code not informed' });
             }
-            const { lat, lon } = await destiny(postal_code);
+            const { logradouro, bairro } = await postalCode(postal_code);
+            const { localidade, uf } = await postalCode(postal_code);
+            const { lat, lon } = await destiny(logradouro);
 
+            const destination_name = logradouro + ', ' + bairro;
+            const locality = localidade + ', ' + uf;
             const latitude = lat;
             const longitude = lon;
 
