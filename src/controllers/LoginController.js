@@ -20,7 +20,7 @@ class LoginController {
                 return res.status(401).send({ message: 'Invalid credentials' });
             }
 
-            const payload = { sub: user.id, email: user.email };
+            const payload = { user_id: user.id, email: user.email };
 
             const token = sign(payload, process.env.SECRET_KEY, { expiresIn: '24h' });
 

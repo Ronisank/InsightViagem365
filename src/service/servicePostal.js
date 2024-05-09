@@ -7,7 +7,7 @@ async function postalCode(cep) {
         if (response.data) {
 
             const { logradouro, bairro, localidade, uf } = response.data;
-           
+            
             return { logradouro, bairro, localidade, uf };
 
         } else {

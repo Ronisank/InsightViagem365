@@ -11,7 +11,8 @@ const userSchema = yup.object().shape({
     date_of_birth: yup.date().required("Date of birth required"),
     gender: yup.string().required(
         'Gender required, valid formats: Male', 'Female', 'Masculino', 'Feminino', 'Other', 'Outro'),
-    adress: yup.string().required("Adress required").min(3, "Minimum 3 characters"),
+    postal_code: yup.string("Postal code required")
+        .min(8, "Numbers only, minimum 8 digits").max(8, "Numbers only, minimum 8 digits"),
 });
 
 async function validating(req, res, next) {
