@@ -23,7 +23,12 @@ const Destination = connection.define('destinations', {
     },
     longitude: {
         type: DataTypes.STRING
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
+
 });
 
 module.exports = Destination;

@@ -38,7 +38,11 @@ module.exports = {
         allowNull: false,
 
       },
-      adress: {
+      postal_code: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      address: {
         type: Sequelize.STRING,
         allowNull: false,
       },

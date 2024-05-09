@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { postalCode } = require('../service/servicePostal');
 
 class UserController {
 
@@ -14,18 +15,22 @@ class UserController {
 
     async register(req, res) {
         try {
-            const { name, email, password, cpf, date_of_birth, gender, adress } = req.body;
-            console.log(req.body);
+            const { name, email, password, cpf, date_of_birth, gender } = req.body;
+            const postal_code = req.body.postal_code;
+
+            if (!postal_code) {
+                res.status(400).json({ error: 'Postal code not informed' });
+            }
+
+            const { logradouro, bairro, localidade, uf } = await postalCode(postal_code);
+            const address = logradouro + ',' + bairro + ',' + localidade + ',' + uf;
+
+            if (!address || !undefined) {
+                return res.status(400).json({ error: 'Address not found' });
+            }  
             const user = await User.create({
-                name: name,
-                email: email,
-                password: password,
-                cpf: cpf,
-                date_of_birth: date_of_birth,
-                gender: gender,
-                adress: adress
+                name, email, password, cpf, date_of_birth, gender, postal_code, address
             });
-            console.log(user);
             res.status(201).json(user);
         }
         catch (error) {

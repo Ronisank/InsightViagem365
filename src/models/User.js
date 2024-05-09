@@ -37,7 +37,11 @@ const User = connection.define('users', {
             isIn: { args: [['Male', 'Female', 'Masculino', 'Feminino', 'Other','Outro']], msg: "Invalid gender, Male or Female " },
         }
     },
-    adress: {
+    postal_code:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    address: {
         type: DataTypes.STRING,
         allowNull: false
     }
