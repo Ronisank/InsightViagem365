@@ -2,17 +2,6 @@ const User = require('../models/User');
 const { postalCode } = require('../service/servicePostal');
 
 class UserController {
-
-    async listAll(req, res) {
-        try {
-            const users = await User.findAll();
-            res.status(200).json(users);
-        }
-        catch (error) {
-            res.status(400).json(error);
-        }
-    }
-
     async register(req, res) {
         try {
             const { name, email, password, cpf, date_of_birth, gender } = req.body;
@@ -27,7 +16,7 @@ class UserController {
 
             if (!address || !undefined) {
                 return res.status(400).json({ error: 'Address not found' });
-            }  
+            }
             const user = await User.create({
                 name, email, password, cpf, date_of_birth, gender, postal_code, address
             });
