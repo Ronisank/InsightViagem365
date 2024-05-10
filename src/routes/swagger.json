@@ -94,16 +94,22 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Adiciona um novo destino, ao usuário autenticado.",
             "schema": {
               "type": "object",
               "properties": {
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Descrição do Local"
                 },
                 "postal_code": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "CEP do Local"
                 }
-              }
+              },
+              "required": [
+                "postal_code"
+              ]
             }
           }
         ],
@@ -143,6 +149,9 @@
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -219,10 +228,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "destination_name": {
-                  "type": "string",
-                  "example": "Endereço do Local "
-                },
                 "description": {
                   "type": "string",
                   "example": "Descrição do Local"
@@ -230,18 +235,6 @@
                 "postal_code": {
                   "type": "string",
                   "example": "CEP do Local"
-                },
-                "locality": {
-                  "type": "string",
-                  "example": "A localização"
-                },
-                "latitude": {
-                  "type": "string",
-                  "example": "A latitude do Local"
-                },
-                "longitude": {
-                  "type": "string",
-                  "example": "A longitude do Local"
                 }
               }
             }

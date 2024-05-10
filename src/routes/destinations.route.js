@@ -9,16 +9,13 @@ destinationsRoute.post('/', auth, DestinationsController.register
         #swagger.tags = ['Destinations'],
         #swagger.parameters['body'] = {
             in: 'body',
-            description: 'Adiciona um novo destino.',
+            type: 'object',
+            description: 'Adiciona um novo destino, ao usuário autenticado.',
             schema: {
-                destination_name: "Endereço do Local ",
                 description: "Descrição do Local",
-                postal_code: "CEP do Local",
-                locality: "A localização",
-                latitude: "-16.7143625",
-                longitude: "-49.3028444",
-            }
-    
+                $postal_code: "CEP do Local",                
+            }  
+        }
     */
 );
 
@@ -64,12 +61,8 @@ destinationsRoute.put('/:id', auth, DestinationsController.update
             in: 'body',
             description: 'Atualiza um destino específico informado pelo ID do destino, associado ao usuário autenticado.',
             schema: {
-                destination_name: "Endereço do Local ",
                 description: "Descrição do Local",
-                postal_code: "CEP do Local",
-                locality: "A localização",
-                latitude: "A latitude do Local",
-                longitude: "A longitude do Local",
+                postal_code: "CEP do Local",                
             }
         }
     */

@@ -1,8 +1,8 @@
 const User = require('../models/User');
 const Destination = require('../models/destinations');
+const { maps } = require('../service/googleMaps');
 const { destiny } = require('../service/serviceMap');
 const { postalCode } = require('../service/servicePostal');
-
 
 
 class DestinationsController {
@@ -11,7 +11,26 @@ class DestinationsController {
             const id = req.user_id;
 
             const destinations = await Destination.findAll({ where: { user_id: id } });
-            res.status(200).json(destinations);
+            if (!destinations) {
+                return res.status(404).json({ error: 'No destinations found' });
+            }
+            const destinationCoordinates = [];
+
+            for (let i = 0; i < destinations.length; i++) {
+
+                const destination = destinations[i];
+                const lat = destination.latitude;
+                const lon = destination.longitude;
+
+                const response = await maps(lat, lon);
+
+                const destinationCoordinatePair = {
+                    destination: destination,
+                    coordinates: response
+                };
+                destinationCoordinates.push(destinationCoordinatePair);
+            }
+            res.status(200).json({ destinationCoordinates });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -28,7 +47,8 @@ class DestinationsController {
             if (!destinations) {
                 return res.status(404).json({ error: 'Destination not found' });
             }
-            res.status(200).json(destinations);
+            const coordinates = await maps(destinations.latitude, destinations.longitude);
+            res.status(200).json({destinations, coordinates});
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -50,19 +70,19 @@ class DestinationsController {
                 return res.status(400).json({ error: 'Postal code not informed' });
             }
             const { logradouro, bairro, localidade, uf } = await postalCode(postal_code);
-            //const {  } = await postalCode(postal_code);
-            const { lat, lon } = await destiny(logradouro);
+            const { lat, lon } = await destiny(logradouro, localidade);
 
             const destination_name = logradouro + ', ' + bairro;
             const locality = localidade + ', ' + uf;
             const latitude = lat;
             const longitude = lon;
             const user_id = id;
+            const google_maps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
 
             const destination = await Destination.create({
                 destination_name, description, postal_code, locality, latitude, longitude, user_id
             });
-            res.status(201).json(destination);
+            res.status(201).json({ destination, google_maps });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -81,7 +101,7 @@ class DestinationsController {
 
             const description = req.body.description;
             const postal_code = req.body.postal_code;
-            const locality = req.body.locality;
+            
 
             const { logradouro, bairro, localidade, uf } = await postalCode(postal_code);
             const { lat, lon } = await destiny(logradouro);
@@ -90,9 +110,10 @@ class DestinationsController {
                 return res.status(400).json({ error: 'Postal code not informed' });
             }
             const destination_name = logradouro + ', ' + bairro;
+            const locality = localidade + ', ' + uf;
             const latitude = lat;
             const longitude = lon;
-
+            const google_maps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
             await destinations.update({
                 destination_name, description, postal_code, locality, latitude, longitude, user_id
             }, {
@@ -101,7 +122,7 @@ class DestinationsController {
 
             await destinations.save();
 
-            res.status(200).json({ message: 'Destination updated', destination: destinations });
+            res.status(200).json({ message: 'Destination updated', destination: destinations, Link: google_maps });
 
         } catch (error) {
             res.status(400).json({ error: error.message });

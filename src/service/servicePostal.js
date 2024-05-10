@@ -5,7 +5,7 @@ async function postalCode(cep) {
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
         
         if (response.data) {
-
+            
             const { logradouro, bairro, localidade, uf } = response.data;
             
             return { logradouro, bairro, localidade, uf };

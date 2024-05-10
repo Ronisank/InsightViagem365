@@ -1,22 +1,20 @@
 const axios = require('axios');
 
-async function destiny(cep) {
+async function destiny(street, city) {
     try {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&street=${cep}&country=Brazil&limit=2`);
-        console.log(response.data + " RESPONSE")
+        const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&street=${street}&city${city}&country=Brazil&limit=2`);
+        
         if (response.data && response.data.length > 0) {
 
             const { lat, lon } = response.data[0];
 
-            console.log("DEU ERRO NA CHAMADA DA FUNÇÃO " + lat, lon)
             return { lat, lon };
 
         } else {
-            throw new Error('CEP não encontrado');
+            throw new Error('CEP not found');
         }
     } catch (error) {
-        console.error('Erro ao consultar o CEP:', error);
-        throw new Error('Erro ao processar a solicitação');
+        throw new Error('Error in the request to the API');
     }
 }
 module.exports = { destiny };
