@@ -24,7 +24,7 @@
         "tags": [
           "User"
         ],
-        "description": "",
+        "description": "Adiciona um novo usuário.",
         "parameters": [
           {
             "name": "body",
@@ -49,7 +49,7 @@
                   "type": "string",
                   "example": "12345678900"
                 },
-                "birth_date": {
+                "date_of_birth": {
                   "type": "string",
                   "example": "yyyy-mm-dd"
                 },
@@ -84,7 +84,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Adiciona um novo destino.",
         "parameters": [
           {
             "name": "authorization",
@@ -104,7 +104,7 @@
                 },
                 "postal_code": {
                   "type": "string",
-                  "example": "CEP do Local"
+                  "example": "00000000"
                 }
               },
               "required": [
@@ -132,7 +132,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Filtra todos os destinos, associados ao usuário autenticado.",
         "parameters": [
           {
             "name": "authorization",
@@ -164,7 +164,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Filtra um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
         "parameters": [
           {
             "name": "id",
@@ -200,7 +200,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Atualiza um destino específico informado pelo usuário.",
         "parameters": [
           {
             "name": "id",
@@ -211,14 +211,6 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "path",
-            "id": {
-              "description": "ID do destino"
-            },
-            "in": "query",
             "type": "string"
           },
           {
@@ -234,7 +226,7 @@
                 },
                 "postal_code": {
                   "type": "string",
-                  "example": "CEP do Local"
+                  "example": "00000000"
                 }
               }
             }
@@ -274,19 +266,11 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "path",
-            "id": {
-              "description": "ID do destino"
-            },
-            "in": "query",
-            "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request"
@@ -308,19 +292,22 @@
         "tags": [
           "Login"
         ],
-        "description": "",
+        "description": "Realiza o login, com email e senha. Retorna um token de acesso.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Realiza o login, com email e senha.",
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "nome@email.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "********"
                 }
               }
             }

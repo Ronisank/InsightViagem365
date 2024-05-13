@@ -1,4 +1,4 @@
-const { verify, decode } = require('jsonwebtoken');
+const { verify } = require('jsonwebtoken');
 
 async function auth(req, res, next) {
     try {
@@ -12,8 +12,7 @@ async function auth(req, res, next) {
                 { message: 'Failed to authenticate token.' });
 
             req.user_id = decoded.user_id;
-            console.log(req['payload'] + ' payload do auth')
-            console.log(req.user_id + ' decoded do auth')
+            
             next();
         });
     } catch (error) {
