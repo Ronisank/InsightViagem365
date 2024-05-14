@@ -5,16 +5,19 @@ class UserController {
     async register(req, res) {
         try {
             const { name, email, password, cpf, date_of_birth, gender } = req.body;
-            const postal_code = req.body.postal_code;
-
+            const postal_code = req.body.postal_code.replace(/[^0-9]/g,"");
+            
             if (!postal_code) {
                 res.status(400).json({ error: 'Postal code not informed' });
             }
+            if (postal_code.length < 8 || postal_code.length > 8) {
+                return res.status(400).json({ error: 'Postal code must have 8 characters' });
+            }
 
-            const { logradouro, bairro, localidade, uf } = await postalCode(postal_code);
-            const address = logradouro + ',' + bairro + ',' + localidade + ',' + uf;
-
-            if (!address || !undefined) {
+            const { street, neighborhood, city, state } = await postalCode(postal_code);
+            const address = street + ',' + neighborhood + ',' + city + ',' + state;
+                        
+            if (!address || undefined) {
                 return res.status(400).json({ error: 'Address not found' });
             }
             const user = await User.create({

@@ -24,7 +24,7 @@
         "tags": [
           "User"
         ],
-        "description": "",
+        "description": "Adiciona um novo usuário.",
         "parameters": [
           {
             "name": "body",
@@ -49,7 +49,7 @@
                   "type": "string",
                   "example": "12345678900"
                 },
-                "birth_date": {
+                "date_of_birth": {
                   "type": "string",
                   "example": "yyyy-mm-dd"
                 },
@@ -84,7 +84,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Adiciona um novo destino.",
         "parameters": [
           {
             "name": "authorization",
@@ -94,16 +94,22 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Adiciona um novo destino, ao usuário autenticado.",
             "schema": {
               "type": "object",
               "properties": {
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Descrição do Local"
                 },
                 "postal_code": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "00000000"
                 }
-              }
+              },
+              "required": [
+                "postal_code"
+              ]
             }
           }
         ],
@@ -126,7 +132,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Filtra todos os destinos, associados ao usuário autenticado.",
         "parameters": [
           {
             "name": "authorization",
@@ -144,6 +150,9 @@
           "401": {
             "description": "Unauthorized"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -155,7 +164,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Filtra um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
         "parameters": [
           {
             "name": "id",
@@ -191,7 +200,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "",
+        "description": "Atualiza um destino específico informado pelo usuário.",
         "parameters": [
           {
             "name": "id",
@@ -205,43 +214,19 @@
             "type": "string"
           },
           {
-            "name": "path",
-            "id": {
-              "description": "ID do destino"
-            },
-            "in": "query",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "description": "Atualiza um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
             "schema": {
               "type": "object",
               "properties": {
-                "destination_name": {
-                  "type": "string",
-                  "example": "Endereço do Local "
-                },
                 "description": {
                   "type": "string",
                   "example": "Descrição do Local"
                 },
                 "postal_code": {
                   "type": "string",
-                  "example": "CEP do Local"
-                },
-                "locality": {
-                  "type": "string",
-                  "example": "A localização"
-                },
-                "latitude": {
-                  "type": "string",
-                  "example": "A latitude do Local"
-                },
-                "longitude": {
-                  "type": "string",
-                  "example": "A longitude do Local"
+                  "example": "00000000"
                 }
               }
             }
@@ -281,19 +266,11 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "path",
-            "id": {
-              "description": "ID do destino"
-            },
-            "in": "query",
-            "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request"
@@ -315,19 +292,22 @@
         "tags": [
           "Login"
         ],
-        "description": "",
+        "description": "Realiza o login, com email e senha. Retorna um token de acesso.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Realiza o login, com email e senha.",
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "nome@email.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "********"
                 }
               }
             }

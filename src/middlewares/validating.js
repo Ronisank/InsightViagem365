@@ -1,7 +1,6 @@
 const yup = require('yup');
 const User = require('../models/User');
 
-
 const userSchema = yup.object().shape({
     name: yup.string().required("Name required").min(3, "Minimum 3 characters"),
     email: yup.string().email("Invalid format email").required("Email required"),
@@ -9,11 +8,12 @@ const userSchema = yup.object().shape({
     cpf: yup.string().required("CPF obrigatório")
         .min(11, "Numbers only, minimum 11 digits").max(11, "Numbers only, maximum 11 digits"),
     date_of_birth: yup.date().required("Date of birth required"),
-    gender: yup.string().required(
-        'Gender required, valid formats: Male', 'Female', 'Masculino', 'Feminino', 'Other', 'Outro'),
-    postal_code: yup.string("Postal code required")
-        .min(8, "Numbers only, minimum 8 digits").max(8, "Numbers only, minimum 8 digits"),
-});
+    gender: yup.string().required('Gender required')
+        .test('validFormat', 'Invalid Gender. Options valids: Male, Female, Masculino, Feminino, Other, Outro', (value) => {
+            const validGender = ['Male', 'Female', 'Masculino', 'Feminino', 'Other', 'Outro'];
+            return validGender.includes(value);
+        }),
+ });
 
 async function validating(req, res, next) {
     try {

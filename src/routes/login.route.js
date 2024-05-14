@@ -7,13 +7,16 @@ const loginRoute = Router();
 loginRoute.post('/', LoginController.login
 /*
     #swagger.tags = ['Login'],
+    #swagger.description = 'Realiza o login, com email e senha. Retorna um token de acesso.'
     #swagger.parameters['body'] = {
         in: 'body',
-        description: 'Realiza o login.',
+        type: 'object',
+        description: 'Realiza o login, com email e senha.',
         schema: {
             email: "nome@email.com",
             password: "********",
         }
+    }
 */            
 );
 

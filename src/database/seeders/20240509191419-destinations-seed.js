@@ -5,7 +5,6 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('destinations', [
       {
-        id: 1,
         destination_name: "Avenida Pasteur, Botafogo",
         description: "Bondinho do Pão de Açucar",
         postal_code: "22290240",
@@ -17,7 +16,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 2,
         destination_name: "Rua Seriema, Arpoador",
         description: "Praia do Arpoador",
         postal_code: "28956000",
@@ -29,7 +27,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 3,
         destination_name: "Estrada do Corcovado, Cosme Velho",
         description: "Cristo Redentor",
         postal_code: "22241370",
@@ -41,7 +38,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 4,
         destination_name: "Rua Jornalista Assis Chateaubriand, Centro",
         description: "Parque da Luz",
         postal_code: "88010150",
@@ -53,7 +49,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 5,
         destination_name: "Caminho da Praia, Barra da Lagoa",
         description: "Barra da Lagoa",
         postal_code: "88061233",
@@ -65,7 +60,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 6,
         destination_name: "Rua Pontal do Atalaia, Praia Grande",
         description: "Mirante Pongaloa",
         postal_code: "28930000",
@@ -77,7 +71,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 7,
         destination_name: "Rua Margarete, Ferradurinha",
         description: "Praia da Ferradurinha",
         postal_code: "28950000",
@@ -89,7 +82,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 8,
         destination_name: "Rua José Ribeiro Vasconcelos, Maragogi",
         description: "Mirante de Maragogi",
         postal_code: "57955000",
@@ -101,7 +93,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 9,
         destination_name: "Rua dos Sabiás, Barrerinhas",
         description: "Parque das Dunas",
         postal_code: "65590000",
@@ -113,7 +104,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        id: 10,
         destination_name: "Rua Porto Canoas, Foz do Iguaçu",
         description: "Cataratas do Iguaçu",
         postal_code: "85855750",
