@@ -3,7 +3,7 @@ const axios = require('axios');
 async function postalCode(cep) {
     try {
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-        console.log(JSON.stringify(response.data));
+        
         if (response.data) {
             const street = response.data.logradouro;
             const neighborhood = response.data.bairro;

@@ -6,7 +6,7 @@ class UserController {
         try {
             const { name, email, password, cpf, date_of_birth, gender } = req.body;
             const postal_code = req.body.postal_code.replace(/[^0-9]/g,"");
-            console.log(postal_code + '  postal_code UserController') ;
+            
             if (!postal_code) {
                 res.status(400).json({ error: 'Postal code not informed' });
             }
@@ -16,8 +16,7 @@ class UserController {
 
             const { street, neighborhood, city, state } = await postalCode(postal_code);
             const address = street + ',' + neighborhood + ',' + city + ',' + state;
-            console.log(address + '  address UserController');
-            
+                        
             if (!address || undefined) {
                 return res.status(400).json({ error: 'Address not found' });
             }
