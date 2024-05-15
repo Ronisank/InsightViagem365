@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "86a439ca-5202-4d92-aba3-c850f81e2e1d",
+		"name": "API_Viagem365",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33911969"
+	},
+	"item": [
+		{
+			"name": "UserCreate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Logan\",\r\n    \"email\": \"lolop@email.com\",\r\n    \"password\": \"123456\",\r\n    \"cpf\": \"59345678000\",\r\n    \"date_of_birth\": \"01-01-20\",\r\n    \"gender\": \"Masculino\",\r\n    \"postal_code\": \"25600100\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "DestinationsCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImpvaG5AZW1haWwuY29tIiwiaWF0IjoxNzE1MzA3MjY5LCJleHAiOjE3MTUzOTM2Njl9.EztC-pQxecavGdAyf-uysGuTa5wG0li8ztXSc16TLyI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"São josé\",\r\n    \"postal_code\": \"88107447\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/destinations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"destinations",
+						""
+					],
+					"query": [
+						{
+							"key": "cep",
+							"value": "88117410",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"john@email.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Destination Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6Im1hcnlAZW1haWwuY29tIiwiaWF0IjoxNzE1MjkwMDg1LCJleHAiOjE3MTUzNzY0ODV9.q-3fJRYpScx4fP7yiKgdGqF5Q4yAMQl7PVRXyJ3oh5s"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination_name\": \"Rua Pontal do Atalaia, Praia Grande\",\r\n    \"description\": \"Mirante Pongaloa\",\r\n    \"postal_code\": \"28930000\",\r\n    \"locality\": \"Arraial do Cabo,RJ\",\r\n    \"latitude\": \"-27.598726\",\r\n    \"longitude\": \"-48.558485\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/destinations/6"
+			},
+			"response": []
+		},
+		{
+			"name": "Destinations ListAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJlbWFpbCI6ImxvZ2FuQGVtYWlsLmNvbSIsImlhdCI6MTcxNTE5Njc5OCwiZXhwIjoxNzE1MjgzMTk4fQ.RNyOxy9Is-GO_yre_laSmaIdRRucmZcV3QnhzbJ9pWc"
+					}
+				],
+				"url": "http://localhost:3000/destinations/"
+			},
+			"response": []
+		},
+		{
+			"name": "Destination List One",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6Im1hcnlAZW1haWwuY29tIiwiaWF0IjoxNzE1MjkwMDg1LCJleHAiOjE3MTUzNzY0ODV9.q-3fJRYpScx4fP7yiKgdGqF5Q4yAMQl7PVRXyJ3oh5s"
+					}
+				],
+				"url": "http://localhost:3000/destinations/6"
+			},
+			"response": []
+		},
+		{
+			"name": "Destination Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJlbWFpbCI6ImxvZ2FuQGVtYWlsLmNvbSIsImlhdCI6MTcxNTE5Njc5OCwiZXhwIjoxNzE1MjgzMTk4fQ.RNyOxy9Is-GO_yre_laSmaIdRRucmZcV3QnhzbJ9pWc"
+					}
+				],
+				"url": "http://localhost:3000/destinations/26"
+			},
+			"response": []
+		}
+	]
+}
