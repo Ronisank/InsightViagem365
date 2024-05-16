@@ -36,14 +36,13 @@ destinationsRoute.get('/', auth, DestinationsController.listAll
         }              
     */
 );
-destinationsRoute.get('/:id', auth, DestinationsController.listOne
+destinationsRoute.get('/:local_id', auth, DestinationsController.listOne
 /*
     #swagger.tags = ['Destinations'],
     #swagger.description = 'Filtra um destino específico informado pelo ID do destino, associado ao usuário autenticado.'
     #swagger.parameters['path'] = {
         id: { description: "ID do destino" }
-        description: "Retorna um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
-        schema: {
+         schema: {
               destination_name: "Nome do Local",
               description: "Descrição do Local",
               postal_code: "CEP do Local",
@@ -54,7 +53,7 @@ destinationsRoute.get('/:id', auth, DestinationsController.listOne
     }
 */
 );
-destinationsRoute.put('/:id', auth, DestinationsController.update
+destinationsRoute.put('/:local_id', auth, DestinationsController.update
     /*
         #swagger.tags = ['Destinations'],
        #swagger.description = 'Atualiza um destino específico informado pelo usuário.'
@@ -68,7 +67,7 @@ destinationsRoute.put('/:id', auth, DestinationsController.update
         }
     */
 );
-destinationsRoute.delete('/:id', auth, DestinationsController.delete
+destinationsRoute.delete('/:local_id', auth, DestinationsController.delete
     /*
         #swagger.tags = ['Destinations'],       
         

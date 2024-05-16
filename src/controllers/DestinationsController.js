@@ -39,7 +39,7 @@ class DestinationsController {
     async listOne(req, res) {
         try {
             const user_id = req.user_id;
-            const destination_id = req.params.id;
+            const destination_id = req.params.local_id;
 
             const destinations = await Destination.findOne({
                 where: { id: destination_id, user_id: user_id }
@@ -49,7 +49,7 @@ class DestinationsController {
                 return res.status(404).json({ error: 'Destination not found' });
             }
             const coordinates = await maps(destinations.latitude, destinations.longitude);
-            res.status(200).json({destinations, coordinates});
+            res.status(200).json({ destinations, coordinates });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -63,32 +63,41 @@ class DestinationsController {
             if (id !== user.id) {
                 return res.status(401).json({ error: 'Unauthorized user' });
             }
-            
-            const description = req.body.description;
-            const postal_code = req.body.postal_code.replace(/[^0-9]/g,"");
-            
 
+            const description = req.body.description;
+            const postal_code = req.body.postal_code.replace(/[^0-9]/g, "");
+
+            if (!description.trim()){
+                return res.status(400).json({ error: 'Description not informed' });
+            }
+            if (description.length < 3) {
+                return res.status(400).json({ error: 'Description must have at least 3 characters' });
+            }
+            
             if (!postal_code) {
                 return res.status(400).json({ error: 'Postal code not informed' });
             }
             if (postal_code.length < 8 || postal_code.length > 8) {
+                console.log(postal_code + 'teste1');
                 return res.status(400).json({ error: 'Postal code must have 8 characters' });
-            }
-            if(description.length < 3 ) {
-                return res.status(400).json({ error: 'Description must have at least 3 characters' });
+            }          
+            const addressExists = await postalCode(postal_code);
+            
+            if (!addressExists) {
+                return res.status(404).json({ error: 'Address not found' });
             }
 
-            const { street, neighborhood, city, state } = await postalCode(postal_code);
-            console.log(street, neighborhood, city, state);
+            const { street, neighborhood, city, state } = addressExists;
+
             const { lat, lon } = await destiny(street, city);
 
-            const destination_name = street + ', ' + neighborhood;
-            const locality = city + ', ' + state;
+            const destination_name = `${street}, ${neighborhood}`;
+            const locality = `${city}, ${state}`;
             const latitude = lat;
             const longitude = lon;
             const user_id = id;
             const google_maps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-   
+
             const destination = await Destination.create({
                 destination_name, description, postal_code, locality, latitude, longitude, user_id
             });
@@ -100,18 +109,25 @@ class DestinationsController {
     async update(req, res) {
         try {
             const user_id = req.user_id;
-            const destination_id = req.params.id;
+            const destination_id = req.params.local_id;
 
             const destinations = await Destination.findOne({
                 where: { id: destination_id, user_id: user_id }
             });
+
             if (!destinations) {
                 return res.status(404).json({ error: 'Destination not found' });
             }
 
             const description = req.body.description;
-            const postal_code = req.body.postal_code.replace(/[^0-9]/g,"");
-            console.log(postal_code);
+            const postal_code = req.body.postal_code.replace(/[^0-9]/g, "");
+
+            if (!description.trim()) {
+                return res.status(400).json({ error: 'Description not informed' });
+            }
+            if (description.length < 3) {
+                return res.status(400).json({ error: 'Description must have at least 3 characters' });
+            }         
 
             if (!postal_code) {
                 return res.status(400).json({ error: 'Postal code not informed' });
@@ -119,19 +135,21 @@ class DestinationsController {
             if (postal_code.length < 8 || postal_code.length > 8) {
                 return res.status(400).json({ error: 'Postal code must have 8 characters' });
             }
-            if(description.length < 5 ) {
-                return res.status(400).json({ error: 'Description must have at least 3 characters' });
+            const addressExists = await postalCode(postal_code);
+            console.log(addressExists);
+            if (!addressExists) {
+                return res.status(404).json({ error: 'Address not found' });
             }
 
-            const { street, neighborhood, city, state } = await postalCode(postal_code);
-            const { lat, lon } = await destiny(street);
+            const { street, neighborhood, city, state } = addressExists;
+            const { lat, lon } = await destiny(street, city);
 
-
-            const destination_name = street + ', ' + neighborhood;
-            const locality = city + ', ' + state;
+            const destination_name = `${street}, ${neighborhood}`;
+            const locality = `${city}, ${state}`;
             const latitude = lat;
             const longitude = lon;
             const google_maps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+
             await destinations.update({
                 destination_name, description, postal_code, locality, latitude, longitude, user_id
             }, {
@@ -148,7 +166,7 @@ class DestinationsController {
     }
     async delete(req, res) {
         try {
-            const destination_id = req.params.id;
+            const destination_id = req.params.local_id;
             const user_id = req.user_id;
 
             const destinations = await Destination.findOne({

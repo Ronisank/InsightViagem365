@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "API-Viagem365",
+    "title": "InsightViagem365",
     "description": "API para gerenciamento de locais turísticos e viagens"
   },
   "host": "localhost:3000",
@@ -19,7 +19,7 @@
     }
   },
   "paths": {
-    "/users/": {
+    "/usuario/": {
       "post": {
         "tags": [
           "User"
@@ -79,7 +79,7 @@
         }
       }
     },
-    "/destinations/": {
+    "/local/": {
       "post": {
         "tags": [
           "Destinations"
@@ -123,6 +123,9 @@
           "401": {
             "description": "Unauthorized"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -159,7 +162,7 @@
         }
       }
     },
-    "/destinations/{id}": {
+    "/local/{local_id}": {
       "get": {
         "tags": [
           "Destinations"
@@ -167,7 +170,7 @@
         "description": "Filtra um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
         "parameters": [
           {
-            "name": "id",
+            "name": "local_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -203,7 +206,7 @@
         "description": "Atualiza um destino específico informado pelo usuário.",
         "parameters": [
           {
-            "name": "id",
+            "name": "local_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -257,7 +260,7 @@
         "description": "Exclui um destino específico informado pelo ID do destino, associado ao usuário autenticado.",
         "parameters": [
           {
-            "name": "id",
+            "name": "local_id",
             "in": "path",
             "required": true,
             "type": "string"

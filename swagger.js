@@ -3,7 +3,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
     info: {
         version: "1.0.0",
-        title: 'API-Viagem365',
+        title: 'InsightViagem365',
         description: 'API para gerenciamento de locais turísticos e viagens',
 
     },
