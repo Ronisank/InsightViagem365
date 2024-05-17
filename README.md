@@ -126,6 +126,8 @@ https://api.postman.com/collections/33911969-6513ddb0-8f6a-4f6b-bf2f-70e17c433a4
 
 ## _*Melhorias que podem ser aplicadas.*_
 
+##### *Criptografia das Senhas*
+
 ##### *Inteligência Artificial:*
 
 * Implementar recursos de inteligência artificial para personalizar a experiência do usuário.
